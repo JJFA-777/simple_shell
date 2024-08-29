@@ -7,14 +7,12 @@
 
 int main(void)
 {
-	char *line = NULL;
+	char *line = NULL, *_argv[100];
 	size_t n = 0;
 	ssize_t num_char;
 	const char *del = " \n";
-	char *_argv[100];
 	int status;
 	pid_t pid;
-
 
 	while (1)
 	{
@@ -29,7 +27,6 @@ int main(void)
 		}
 
 		pid = fork();
-
 		if (pid == -1)
 		{
 			perror("Error forking");
@@ -38,33 +35,16 @@ int main(void)
 		}
 		else if (pid == 0)
 		{
-
 			_token(line, del, _argv);
-
-/*			i = 0;
-
-			token = strtok(line, del);
-
-			while (token != NULL)
-			{
-				_argv[i] = token;
-				token = strtok(NULL, del);
-				i++;
-			}
-			_argv[i] = NULL;
-*/
 			if (execve(_argv[0], _argv, NULL) == -1)
 			{
 				perror("Error executing command");
-				exit (EXIT_FAILURE);
+				exit(EXIT_FAILURE);
 			}
 		}
-		else 
-		{
+		else
 			wait(&status);
-		}
-
 	}
 
-	return(0);
+	return (0);
 }
