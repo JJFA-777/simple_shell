@@ -1,7 +1,9 @@
 #include "shell.h"
 
 /**
+ *main - Entry point
  *
+ *Return: Always 0 (success);
  *
  */
 
@@ -41,18 +43,6 @@ int main(void)
 
 			_token(line, del, _argv);
 
-/*			i = 0;
-
-			token = strtok(line, del);
-
-			while (token != NULL)
-			{
-				_argv[i] = token;
-				token = strtok(NULL, del);
-				i++;
-			}
-			_argv[i] = NULL;
-*/
 			if (execve(_argv[0], _argv, NULL) == -1)
 			{
 				perror("Error executing command");
